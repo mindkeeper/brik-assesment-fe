@@ -6,6 +6,7 @@ import { productQuery } from "./reducers/productQuery";
 import persistStore from "redux-persist/es/persistStore";
 import { persistReducer } from "redux-persist";
 import { categoryQuery } from "./reducers/categoryQuery";
+import { userQuery } from "./reducers/userQuery";
 const persistConfig = {
   storage,
   key: "root",
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   [authQuery.reducerPath]: authQuery.reducer,
   [productQuery.reducerPath]: productQuery.reducer,
   [categoryQuery.reducerPath]: categoryQuery.reducer,
+  [userQuery.reducerPath]: userQuery.reducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducer);
 
@@ -25,7 +27,8 @@ export const store = configureStore({
     getDefaultMiddleware({ serializableCheck: false })
       .concat(authQuery.middleware)
       .concat(productQuery.middleware)
-      .concat(categoryQuery.middleware),
+      .concat(categoryQuery.middleware)
+      .concat(userQuery.middleware),
 });
 
 export const persistor = persistStore(store);
