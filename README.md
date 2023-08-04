@@ -1,12 +1,12 @@
-<h1 align="center">Saka Coffee Shop</h1>
+<h1 align="center">Klontong Web App</h1>
 <p align="left">
   Built with:
 </p>
 
-[![html5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)]()
-[![css3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
-[![bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)]()
-[![react](https://img.shields.io/badge/React-563D7C?style=for-the-badge&logo=react&logoColor=white)]()
+![React](https://img.shields.io/badge/React--JS-%5E18.2.0-cyan?logo=react)
+![tailwind](https://img.shields.io/badge/tailwindcss-%5E3.3.3-blue?logo=tailwindcss)
+![Antd](https://img.shields.io/badge/Antd-%5E5.8.1-blue?logo=antd)
+![Antd](https://img.shields.io/badge/@reduxjs/toolkit-%5E5.8.1-purple?logo=redux)
 
 ## Table of Contents
 
