@@ -87,7 +87,7 @@ export default function ProductModal({ toggleModal, productId, openModal }) {
                 <h3 title="description" className="font-bold flex-1">
                   Deskripsi
                 </h3>
-                <p className="flex-1">{product?.description}</p>
+                <p className="flex-1 capitalize">{product?.description}</p>
               </div>
               <div className="flex justify-start items-start">
                 <h3 title="category" className="font-bold flex-1">
