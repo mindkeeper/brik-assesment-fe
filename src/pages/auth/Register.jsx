@@ -89,8 +89,8 @@ export default function Register() {
             name="username"
             rules={[
               { required: true, message: "Username wajib diisi" },
-              { min: 4, message: "Username harus terdiri dari 4−12 karakter" },
-              { max: 12, message: "Username harus terdiri dari 4−12 karakter" },
+              { min: 6, message: "Username harus terdiri dari 6-20 karakter" },
+              { max: 20, message: "Username harus terdiri dari 6-20 karakter" },
             ]}
           >
             <Input />
@@ -103,6 +103,10 @@ export default function Register() {
               { required: true, message: "Kata sandi wajib diisi" },
               { min: 6, message: "Kata sandi harus 6-20 karakter" },
               { max: 20, message: "Kata sandi harus 6-20 karakter" },
+              {
+                pattern: /^(?=.*[a-zA-Z])(?=.*\d).+$/,
+                message: "kata sandi harus memiliki kombinasi angka dan huruf",
+              },
             ]}
           >
             <Input.Password />
