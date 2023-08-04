@@ -204,11 +204,10 @@ export default function AddProduct({ isOpenModal, toggle }) {
         <Form.Item className="m-0">
           <div className="flex flex-col sm:flex-row gap-2">
             <Button
-              type="primary"
               htmlType="submit"
               disabled={!submittable || isLoading}
               loading={isLoading}
-              className="w-full sm:w-fit"
+              className="w-full sm:w-fit bg-gray-900 text-white hover:bg-gray-100 hover:text-black delay-100"
             >
               Simpan
             </Button>

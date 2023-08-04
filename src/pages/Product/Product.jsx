@@ -154,7 +154,12 @@ export default function Product() {
           </div>
           {userRole && userRole === "Admin" && (
             <div>
-              <Button onClick={toggleAdminModal}>Buat Produk Baru</Button>
+              <Button
+                className="bg-[#00aeef] text-white font-bold hover:bg-inherit"
+                onClick={toggleAdminModal}
+              >
+                Buat Produk Baru
+              </Button>
               <AddProduct
                 isOpenModal={openModalAdmin}
                 toggle={toggleAdminModal}
