@@ -1,18 +1,30 @@
 import { Layout } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import AuthCarousel from "./_AuthCarousel";
+import { useGetUserQuery } from "../../redux/reducers/userQuery";
 
 export default function AuthLayout({ children }) {
   const { token } = useSelector((state) => state.auth);
+  const { data: userData } = useGetUserQuery(token);
+  const userRole = useMemo(() => {
+    if (userData && userData.data) {
+      return userData.data.role;
+    }
+    return null;
+  }, [userData]);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
     if (token) {
-      navigate("/");
+      if (userRole && userRole === "Admin") {
+        navigate("/products");
+      } else {
+        navigate("/");
+      }
     }
-  }, [token, navigate]);
+  }, [token, navigate, userRole]);
 
   return (
     <Layout.Content className="relative">

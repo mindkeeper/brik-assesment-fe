@@ -4,14 +4,16 @@ import { logout } from "../redux/reducers/authSlice";
 import { Button, Layout } from "antd";
 import { BiUser } from "react-icons/bi";
 import logo from "../logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 function Navbar() {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const handleLogout = useCallback(() => {
     dispatch(logout());
-  }, [dispatch]);
+    navigate("/login");
+  }, [dispatch, navigate]);
   return (
     <Layout.Header className="w-full bg-gray-900 px-[5%] border-0 border-solid border-b border-b-gray-300">
       <div className="flex h-full mx-auto max-w-[1400px] justify-between gap-4 items-center">
