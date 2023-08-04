@@ -4,14 +4,14 @@ const axiosInstance = axios.create({ baseURL: `${HOST}/api` });
 
 export const axiosBaseQuery =
   () =>
-  async ({ url, method, accessToken, data, params, formdata }) => {
+  async ({ url, method, accessToken, data, params, formData }) => {
     try {
       const response = await axiosInstance({
         url,
         method,
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          "Content-Type": formdata ? "multipart/form-data" : "application/json",
+          "Content-Type": formData ? "multipart/form-data" : "application/json",
         },
         data,
         params,
