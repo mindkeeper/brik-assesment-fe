@@ -1,10 +1,13 @@
 import React, { useCallback, useMemo, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import { useGetProductListQuery } from "../../redux/reducers/productQuery";
-import { Alert, Empty, Input, Pagination, Select } from "antd";
+import { Alert, Button, Empty, Input, Pagination, Select } from "antd";
 import { useGetCategoriesQuery } from "../../redux/reducers/categoryQuery";
 import Card from "../../components/Card";
 import ProductModal from "../../components/modal/ProductModal";
+import { useSelector } from "react-redux";
+import { useGetUserQuery } from "../../redux/reducers/userQuery";
+import AddProduct from "../admin/AddProduct";
 
 export default function Product() {
   const [searchParams, setSearchParams] = useState({
@@ -63,6 +66,7 @@ export default function Product() {
 
   const [selectedId, setSelectedId] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalAdmin, setOpenModalAdmin] = useState(false);
   const toggleModal = useCallback(
     (id) => {
       if (openModal) {
@@ -74,6 +78,19 @@ export default function Product() {
     },
     [openModal]
   );
+
+  const { token } = useSelector((state) => state.auth);
+  const { data: userData } = useGetUserQuery(token);
+  const userRole = useMemo(() => {
+    if (userData && userData.data) {
+      return userData.data.role;
+    }
+    return null;
+  }, [userData]);
+
+  const toggleAdminModal = useCallback(() => {
+    setOpenModalAdmin((prev) => !prev);
+  }, []);
   return (
     <section className="w-full px-[5%] sm:px-[10%] py-6 flex flex-col">
       <main className="flex-1 w-full max-w-[1200px] mx-auto flex flex-col gap-4">
@@ -106,33 +123,44 @@ export default function Product() {
           />
         )}
         <h1 className="text-3xl font-bold capitalize m-0">List Produk</h1>
-        <div className="flex gap-4">
-          <Input.Search
-            placeholder="Cari produk"
-            onChange={(e) => changeParamsHandler("name", e.target.value)}
-            className="max-w-[480px]"
-            size="large"
-            allowClear
-          />
-          <Select
-            defaultValue="newest"
-            onChange={(value) => changeParamsHandler("sort", value)}
-            options={[
-              { value: "newest", label: "Paling baru" },
-              { value: "oldest", label: "Paling lama" },
-              { value: "cheapest", label: "Termurah" },
-              { value: "priciest", label: "Termahal" },
-            ]}
-            size="large"
-            className="w-fit"
-          />
-          <Select
-            defaultValue=""
-            onChange={(value) => changeParamsHandler("category_id", value)}
-            options={categories}
-            size="large"
-            className="w-fit"
-          />
+        <div className="flex items-center justify-between">
+          <div className="flex gap-4">
+            <Input.Search
+              placeholder="Cari produk"
+              onChange={(e) => changeParamsHandler("name", e.target.value)}
+              className="max-w-[480px]"
+              size="large"
+              allowClear
+            />
+            <Select
+              defaultValue="newest"
+              onChange={(value) => changeParamsHandler("sort", value)}
+              options={[
+                { value: "newest", label: "Paling baru" },
+                { value: "oldest", label: "Paling lama" },
+                { value: "cheapest", label: "Termurah" },
+                { value: "priciest", label: "Termahal" },
+              ]}
+              size="large"
+              className="w-fit"
+            />
+            <Select
+              defaultValue=""
+              onChange={(value) => changeParamsHandler("category_id", value)}
+              options={categories}
+              size="large"
+              className="w-fit"
+            />
+          </div>
+          {userRole && userRole === "Admin" && (
+            <div>
+              <Button onClick={toggleAdminModal}>Buat Produk Baru</Button>
+              <AddProduct
+                isOpenModal={openModalAdmin}
+                toggle={toggleAdminModal}
+              />
+            </div>
+          )}
         </div>
         {isFetching ? (
           <div className="grid grid-cols-[repeat(2,_1fr)] md:grid-cols-[repeat(3,_1fr)] xl:grid-cols-[repeat(4,_1fr)] gap-4">
